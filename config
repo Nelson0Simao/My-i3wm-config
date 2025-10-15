@@ -1,0 +1,348 @@
+#####################################################################################################################
+#################                          Define the $mod variable/key                             #################
+#####################################################################################################################
+
+# Usando Alt como tecla principal para evitar conflitos
+# Mod1 = Alt key
+
+set $mod Mod1
+set $super Mod4
+
+exec --no-startup-id feh --bg-scale /home/srroot/Imagens/Wellpapel/wallpapel.31.png
+
+#####################################################################################################################
+#################                          Define HDMI screen resolution                        #####################
+#####################################################################################################################
+
+exec xrandr --output DP-1 --mode 1366x768
+
+#####################################################################################################################
+#################                          Define the movements keys - variables                    #################
+#####################################################################################################################
+
+# Usando setas para movimento (sem conflito com teclas de texto)
+set $up Up
+set $down Down
+set $left Left
+set $right Right
+
+font pango:FantasqueSansMono Nerd Font 12
+
+# Inicio da config de mover janela  a baixo
+
+
+# Final da config de mover janela  a baixo
+
+
+# Encontrando app - SEM CONFLITOS
+
+# ❌ ANTIGO: Alt+D → ✅ NOVO: Super+D
+bindsym $super+d exec rofi -show drun -theme ~/.local/share/rofi/themes/squared-nord.rasi
+
+# ❌ ANTIGO: Alt+Enter → ✅ NOVO: Super+Enter
+bindsym $super+Return exec --no-startup-id alacritty;focus
+
+# ❌ ANTIGO: Alt+Shift+Enter → ✅ NOVO: Super+Shift+Enter
+bindsym Shift+Return exec --no-startup-id nautilus;focus
+
+# ❌ ANTIGO: Alt+Q → ✅ NOVO: Super+Q
+bindsym $super+q kill
+
+# ❌ ANTIGO: Alt+R → ✅ NOVO: Super+R
+bindsym $super+r mode "resize"
+
+# Desligar o computador
+bindsym $mod+0 exec "i3-nagbar -t warning -m 'Desligar o sistema?' -b 'Sim' 'systemctl poweroff'"
+
+#####################################################################################################################
+#################                          Single and Dual screen                                   #################
+#####################################################################################################################
+
+# switch to workspace - USANDO SUPER + NÚMEROS
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+bindsym $super+7 workspace 7
+bindsym $super+8 workspace 8
+bindsym $super+9 workspace 9
+
+# move focused container to workspace - SUPER + SHIFT + NÚMEROS
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+bindsym $super+Shift+7 move container to workspace 7
+bindsym $super+Shift+8 move container to workspace 8
+bindsym $super+Shift+9 move container to workspace 9
+
+#####################################################################################################################
+#################                                   menu                                            #################
+#####################################################################################################################
+
+# start dmenu - ALT + D
+bindsym $mod+d exec rofi -show drun -theme ~/.local/share/rofi/themes/squared-nord.rasi
+
+#####################################################################################################################
+#################                          how to exit, logoff, suspend, ...                        #################
+#####################################################################################################################
+
+bindsym $super+0 mode "$mode_system"
+
+set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# ArcoLinux Logout
+bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#####################################################################################################################
+#################                          reload changed configuration                             #################
+#####################################################################################################################
+
+# restart i3 inplace - SUPER + SHIFT + R
+bindsym $super+Shift+r restart
+
+# reload the configuration file - SUPER + SHIFT + C
+bindsym $super+Shift+c reload
+
+#####################################################################################################################
+#################                          Stopping an application                                  #################
+#####################################################################################################################
+
+# kill focused window - ALT + Q (não conflita com Ctrl+Q do Neovim)
+bindsym $mod+q kill
+
+#####################################################################################################################
+#################                          Moving around in i3                                      #################
+#####################################################################################################################
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# toggle tiling / floating - ALT + SHIFT + ESPAÇO
+bindsym $mod+Shift+space floating toggle
+
+# change focus - ALT + SETAS (rápido e sem conflitos)
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move focused window - ALT + SHIFT + SETAS
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+#####################################################################################################################
+#################                          moving around workspaces                                 #################
+#####################################################################################################################
+
+# next/previous workspace - ALT + TAB
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+bindsym $super+Tab workspace back_and_forth
+
+# navigate workspaces next / previous - ALT + CTRL + SETAS
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Control+Left workspace prev
+
+#####################################################################################################################
+#################                          Scratchpad                                        #################
+#####################################################################################################################
+
+# Scratchpad - SUPER + - 
+bindsym $super+Shift+minus move scratchpad
+bindsym $super+minus scratchpad show
+
+#####################################################################################################################
+#################                          Tiling parameters                                        #################
+#####################################################################################################################
+
+# orientation for new workspaces
+default_orientation horizontal
+
+# split - ALT + H/V
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# fullscreen - ALT + F
+bindsym $mod+f fullscreen toggle
+
+# change container layout - ALT + S/W/E
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# change focus between tiling / floating - ALT + ESPAÇO
+bindsym $mod+space focus mode_toggle
+
+# focus parent - ALT + A
+bindsym $mod+a focus parent
+
+#####################################################################################################################
+#################                          resize mode                                              #################
+#####################################################################################################################
+
+# ALT + R para modo redimensionamento (não conflita com Ctrl+R do Neovim)
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+    bindsym $left       resize shrink width 10 px or 10 ppt
+    bindsym $down       resize grow height 10 px or 10 ppt
+    bindsym $up         resize shrink height 10 px or 10 ppt
+    bindsym $right      resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#####################################################################################################################
+#################                          applications keyboard shortcuts                          #################
+#####################################################################################################################
+
+# Terminal - ALT + ENTER
+bindsym $mod+Return exec --no-startup-id alacritty;focus
+
+# Pavucontrol - SUPER + P
+bindsym $super+p exec --no-startup-id pavucontrol
+
+# Nautilus - ALT + SHIFT + ENTER
+bindsym $mod+Shift+Return exec --no-startup-id nautilus;focus
+
+#####################################################################################################################
+#################                          screenshots                                              #################
+#####################################################################################################################
+
+# Screenshots - MANTIDOS (Print é tecla do lado direito)
+bindsym Print exec maim -s --format png /dev/stdout | xclip -selection clipboard -t image/png -i
+bindsym $super+Print exec maim --select | tee ~/Pictures/$(date +%s).png | xclip -sel c -t image/png
+
+#####################################################################################################################
+#################                          audio settings                                           #################
+#####################################################################################################################
+
+# Audio - MANTIDOS (teclas de mídia)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+#####################################################################################################################
+#################                          light                                               #################
+#####################################################################################################################
+
+# Brightness - MANTIDOS (teclas de brilho)
+bindsym XF86MonBrightnessUp exec light -A 1
+bindsym XF86MonBrightnessDown exec light -U 1
+
+#####################################################################################################################
+#################                          bar toggle                                               #################
+#####################################################################################################################
+
+# bar toggle - SUPER + B (AGORA SEM CONFLITO)
+bindsym $super+b bar mode toggle
+bindsym $super+i bar mode invisible
+
+#####################################################################################################################
+#################                          i3 gaps                                                  #################
+#####################################################################################################################
+
+for_window [class="^.*"] border pixel 1
+for_window [class="Brave-browser"] floating disable
+
+gaps inner 10
+gaps outer 1
+
+# gaps mode - SUPER + G
+bindsym $super+g mode "$mode_gaps"
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+mode "$mode_gaps" {
+    bindsym o      mode "$mode_gaps_outer"
+    bindsym i      mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 0
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0     gaps outer current set 0
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#####################################################################################################################
+#################                          picom and wallpaper                                      #################
+#####################################################################################################################
+
+exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
+exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id ~/.config/i3/scripts/mouse.sh
+
+#####################################################################################################################
+#####################################################################################################################
+#####################################################################################################################
+#################                          bar appearance                                           #################
+#####################################################################################################################
+#####################################################################################################################
+#####################################################################################################################
+
+
+##START THEMING WM
+
+bar {
+    status_command i3status -c ~/.config/i3status/config
+    # position top # Ou bottom, se preferir embaixo
+}
+
+# Window color settings
+# class                 border  backgr. text    indicator
+client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
+client.unfocused        #2e3440 #1f222d #888888 #1f222d
+client.focused_inactive #2e3440 #1f222d #888888 #1f222d
+client.placeholder      #2e3440 #1f222d #888888 #1f222d
+client.urgent           #900000 #900000 #ffffff #900000
+
+client.background       #242424
+
+##STOP THEMING WM
+
+exec xset r rate 300 50 &
