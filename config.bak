@@ -28,18 +28,16 @@ set $right Right
 
 font pango:FantasqueSansMono Nerd Font 12
 
-# Remover borda do uloucher
-for_window [class="Ulauncher"] floating enable, border none, focus off, move position center
-
 # Inicio da config de mover janela  a baixo
+
+
+# Final da config de mover janela  a baixo
+
 
 # Encontrando app - SEM CONFLITOS
 
 # ❌ ANTIGO: Alt+D → ✅ NOVO: Super+D
-# === Ulauncher ===
-exec --no-startup-id ulauncher --no-window
-bindsym $mod+d exec ulauncher-toggle
-
+bindsym $super+d exec rofi -show drun -theme ~/.local/share/rofi/themes/squared-nord.rasi
 
 # ❌ ANTIGO: Alt+Enter → ✅ NOVO: Super+Enter
 bindsym $super+Return exec --no-startup-id alacritty;focus
@@ -54,7 +52,7 @@ bindsym $super+q kill
 bindsym $super+r mode "resize"
 
 # Desligar o computador
-bindsym $mod+0 exec --no-startup-id i3-nagbar -t warning -m "Encerrar sessão? [s] sair [r] reiniciar [p] desligar" -b "Sair" "i3-msg exit" -b "Reiniciar" "systemctl reboot" -b "Desligar" "systemctl poweroff"
+bindsym $mod+0 exec "i3-nagbar -t warning -m 'Desligar o sistema?' -b 'Sim' 'systemctl poweroff'"
 
 #####################################################################################################################
 #################                          Single and Dual screen                                   #################
@@ -85,6 +83,9 @@ bindsym $super+Shift+9 move container to workspace 9
 #####################################################################################################################
 #################                                   menu                                            #################
 #####################################################################################################################
+
+# start dmenu - ALT + D
+bindsym $mod+d exec rofi -show drun -theme ~/.local/share/rofi/themes/squared-nord.rasi
 
 #####################################################################################################################
 #################                          how to exit, logoff, suspend, ...                        #################
@@ -309,7 +310,10 @@ mode "$mode_gaps_outer" {
 }
 
 #####################################################################################################################
+#################                          picom and wallpaper                                      #################
+#####################################################################################################################
 
+exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id ~/.config/i3/scripts/mouse.sh
 
